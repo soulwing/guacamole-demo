@@ -1,0 +1,39 @@
+version: "2"
+services:
+
+  guacamole:
+    image: guacamole/guacamole:latest
+    environment:
+      GUACAMOLE_HOME: /opt/guacamole/home
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: mysql
+      MYSQL_DATABASE: guacamole
+      MYSQL_USER: root
+      MYSQL_PASSWORD: s3kr3t
+      # Don't include this JAVA_OPTS settings in production applications
+      JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom"
+    depends_on: 
+      - mysql
+      - guacd
+    volumes:
+      - $PWD/config/cas-mysql:/opt/guacamole/home:ro
+
+  guacd:
+    image: guacamole/guacd:latest
+
+  mysql:
+    image: mysql
+    volumes:
+      - $PWD/db/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: s3kr3t
+
+  proxy:
+    image: guacamole-demo-proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - guacamole
+    volumes:
+      - $PWD/proxy/cert:/etc/nginx/cert:ro
