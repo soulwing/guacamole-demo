@@ -1,19 +1,25 @@
 version: "2"
 services:
+
   guacamole:
     image: guacamole/guacamole:latest
-    ports:
-      - "80:8080"
     environment:
       GUACAMOLE_HOME: /opt/guacamole/home
       GUACD_HOSTNAME: guacd
     depends_on: 
       - guacd
-    volumes_from:
-      - config:ro
+    volumes:
+      - $PWD/config/minimal:/opt/guacamole/home:ro
 
   guacd:
     image: guacamole/guacd:latest
 
-  config:
-    image: guacamole-demo-config:minimal
+  proxy:
+    image: guacamole-demo-proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - guacamole
+    volumes:
+      - $PWD/proxy/cert:/etc/nginx/cert:ro

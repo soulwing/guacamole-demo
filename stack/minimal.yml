@@ -1,0 +1,16 @@
+version: "2"
+services:
+  guacamole:
+    image: guacamole/guacamole:latest
+    ports:
+      - "80:8080"
+    environment:
+      GUACAMOLE_HOME: /opt/guacamole/home
+      GUACD_HOSTNAME: guacd
+    depends_on: 
+      - guacd
+    volumes:
+      - $PWD/config/minimal:/opt/guacamole/home:ro
+
+  guacd:
+    image: guacamole/guacd:latest

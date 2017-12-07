@@ -1,0 +1,31 @@
+version: "2"
+
+services:
+  mysql:
+    image: mysql
+    volumes:
+      - $HOME/tmp/guacamole-mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: s3kr3t
+
+  guacd:
+    image: guacamole/guacd:latest
+
+  config:
+    image: soulwing/guacamole-demo-config
+   
+  guacamole:
+    image: guacamole/guacamole:latest
+    ports:
+      - 8080:8080
+    environment:
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: mysql
+      MYSQL_DATABASE: guacamole
+      MYSQL_USER: root
+      MYSQL_PASSWORD: s3kr3t
+    depends_on: 
+      - mysql 
+      - guacd
+    volumes_from:
+      - config:ro

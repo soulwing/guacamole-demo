@@ -1,6 +1,12 @@
 version: "2"
-services:
 
+services:
+  guacd:
+    image: guacamole/guacd:latest
+
+  config:
+    image: soulwing/guacamole-demo-config
+   
   guacamole:
     image: guacamole/guacamole:latest
     environment:
@@ -11,18 +17,13 @@ services:
     volumes_from:
       - config:ro
 
-  guacd:
-    image: guacamole/guacd:latest
-
-  config:
-    image: guacamole-demo-config:minimal
-
   proxy:
-    image: guacamole-demo-proxy
+    image: soulwing/guacamole-demo-proxy
     ports:
       - 80:80
       - 443:443
     depends_on:
       - guacamole
     volumes:
-      - $HOME/git/guacamole-demo/proxy/cert:/etc/nginx/cert:ro
+      - $HOME/guacamole-demo/proxy/cert:/etc/nginix/cert:ro
+

@@ -8,14 +8,11 @@ services:
       GUACD_HOSTNAME: guacd
     depends_on: 
       - guacd
-    volumes_from:
-      - config:ro
+    volumes:
+      - $PWD/config/basic:/opt/guacamole/home:ro
 
   guacd:
     image: guacamole/guacd:latest
-
-  config:
-    image: guacamole-demo-config:basic
 
   proxy:
     image: guacamole-demo-proxy
@@ -25,4 +22,4 @@ services:
     depends_on:
       - guacamole
     volumes:
-      - $HOME/git/guacamole-demo/proxy/cert:/etc/nginx/cert:ro
+      - $PWD/proxy/cert:/etc/nginx/cert:ro
