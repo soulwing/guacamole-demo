@@ -1,5 +1,5 @@
 <user-mapping>
-  <authorize username="bob" password="Tibsspw!!">
+  <authorize username="bob" password="T1bsspw!!">
     <protocol>ssh</protocol>
     <param name="color-scheme">green-black</param>
     <param name="font-size">14</param>
