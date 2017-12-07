@@ -1,0 +1,8 @@
+<user-mapping>
+  <authorize username="ceharris" password="ceharris">
+    <protocol>ssh</protocol>
+    <param name="color-scheme">green-black</param>
+    <param name="font-size">14</param>
+    <param name="hostname">192.168.56.2</param>
+  </authorize>
+</user-mapping>

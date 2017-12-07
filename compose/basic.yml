@@ -1,0 +1,10 @@
+version: "2"
+services:
+  guacamole:
+    image: guacamole/guacamole:latest
+    environment:
+      GUACD_HOSTNAME: guacd
+    depends_on: 
+      - guacd
+  guacd:
+    image: guacamole/guacd:latest
