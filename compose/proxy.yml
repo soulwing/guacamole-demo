@@ -15,7 +15,7 @@ services:
     image: guacamole/guacd:latest
 
   config:
-    image: guacamole-demo-config:basic
+    image: guacamole-demo-config:minimal
 
   proxy:
     image: guacamole-demo-proxy
