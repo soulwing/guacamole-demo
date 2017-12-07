@@ -6,6 +6,7 @@ services:
     environment:
       GUACAMOLE_HOME: /opt/guacamole/home
       GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: mysql
       MYSQL_DATABASE: guacamole
       MYSQL_USER: root
       MYSQL_PASSWORD: s3kr3t
