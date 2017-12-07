@@ -6,6 +6,8 @@ services:
     environment:
       GUACAMOLE_HOME: /opt/guacamole/home
       GUACD_HOSTNAME: guacd
+      # Don't include this JAVA_OPTS settings in production applications
+      JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom"
     depends_on: 
       - guacd
     volumes:
