@@ -1,0 +1,11 @@
+<user-mapping>
+  <authorize username="bob" password="T1bsspw!!">
+    <protocol>ssh</protocol>
+    <param name="color-scheme">green-black</param>
+    <param name="font-size">14</param>
+    <param name="hostname">ubuntu-server.internal.soulwing.org</param>
+    <param name="enable-sftp">true</param>
+    <!-- not supported until Guacamole 0.9.14 -->
+    <param name="sftp-root-directory">/home/bob</param>
+  </authorize>
+</user-mapping>

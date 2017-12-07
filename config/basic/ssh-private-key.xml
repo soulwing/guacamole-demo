@@ -1,0 +1,15 @@
+<user-mapping>
+  <authorize username="bob" password="T1bsspw!!">
+    <protocol>ssh</protocol>
+    <param name="color-scheme">green-black</param>
+    <param name="font-size">14</param>
+    <param name="hostname">ubuntu-server.internal.soulwing.org</param>
+    <param name="username">bob</param>
+    <param name="private-key">-----BEGIN RSA PRIVATE KEY-----
+     
+        Private Key Body Goes Here. Note the way in which the header and
+        trailer lines are formatted.
+
+-----END RSA PRIVATE KEY-----</param>
+  </authorize>
+</user-mapping>
