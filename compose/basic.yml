@@ -3,8 +3,15 @@ services:
   guacamole:
     image: guacamole/guacamole:latest
     environment:
+      GUACAMOLE_HOME: /opt/guacamole/home
       GUACD_HOSTNAME: guacd
+    volumes_from:
+      - config:ro
     depends_on: 
       - guacd
+
   guacd:
     image: guacamole/guacd:latest
+
+  config:
+    image: guacamole-demo-config:basic
