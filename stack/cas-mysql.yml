@@ -1,3 +1,8 @@
+# This stack configuration is the same as the mysql.yml configuration
+# except that GUACAMOLE_HOME is mounted from config/cas-mysql, which
+# includes a guacamole.properties file with configuration for the CAS
+# authentication provider.
+
 version: "2"
 services:
 
@@ -36,4 +41,4 @@ services:
     depends_on:
       - guacamole
     volumes:
-      - $PWD/proxy/cert:/etc/nginx/cert:ro
+      - $PWD/cert:/etc/nginx/cert:ro

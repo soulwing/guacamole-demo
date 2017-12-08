@@ -1,3 +1,7 @@
+# This stack configuration adds a MySQL database for use with the
+# MySQL auth provider in Guacamole. Note that connections to the
+# database from guacamole use the private network of the stack.
+
 version: "2"
 services:
 
@@ -16,7 +20,7 @@ services:
       - mysql
       - guacd
     volumes:
-      - $PWD/config/basic:/opt/guacamole/home:ro
+      - $PWD/config/mysql:/opt/guacamole/home:ro
 
   guacd:
     image: guacamole/guacd:latest
@@ -36,4 +40,4 @@ services:
     depends_on:
       - guacamole
     volumes:
-      - $PWD/proxy/cert:/etc/nginx/cert:ro
+      - $PWD/cert:/etc/nginx/cert:ro

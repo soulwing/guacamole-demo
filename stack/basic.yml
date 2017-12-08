@@ -1,3 +1,12 @@
+# This stack configuration is the same as proxy.yml except that
+# 
+# 1. It mounts GUACAMOLE_HOME from config/basic. This will allow us
+#    to explore some of the basic features of Guacamole by editing 
+#    the user-mapping.xml configuration file.
+# 2. It sets a JRE property to reduce the start up time for Guacamole.
+#    As noted in the configuration, while this is fine to do for demo,
+#    you shouldn't do this in a production configuration.
+
 version: "2"
 services:
 
@@ -24,4 +33,4 @@ services:
     depends_on:
       - guacamole
     volumes:
-      - $PWD/proxy/cert:/etc/nginx/cert:ro
+      - $PWD/cert:/etc/nginx/cert:ro

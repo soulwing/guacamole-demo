@@ -1,3 +1,9 @@
+# This stack is used for the Minimal Viable Configuration demo
+# It uses the configuration in config/minimal, which includes an
+# empty user-mapping.xml. It runs the guacamole web server on host
+# port 80 and runs guacd on the private network for the stack,
+# listening on the default port.
+
 version: "2"
 services:
   guacamole:

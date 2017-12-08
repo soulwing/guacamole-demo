@@ -1,3 +1,9 @@
+# This stack configuration extends the minimal.yml to add a nginx-based
+# reverse proxy. Note that the certificate used for TLS is mounted into
+# the container for the proxy. In this configuration nginx listens on 
+# host ports 80 and 443 and it forwards requests to the guacamole container
+# over the private network for the stack.
+
 version: "2"
 services:
 
@@ -22,4 +28,4 @@ services:
     depends_on:
       - guacamole
     volumes:
-      - $PWD/proxy/cert:/etc/nginx/cert:ro
+      - $PWD/cert:/etc/nginx/cert:ro
