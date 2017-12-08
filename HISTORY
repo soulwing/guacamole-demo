@@ -1,0 +1,80 @@
+    1  exit
+    2  ls
+    3  mkdir drop
+    4  mv guacamole* drop/
+    5  git clone git@github.com:soulwing/guacamole-demo.git
+    6  git clone http://github.com/soulwing/guacamole-demo.git
+    7  ls
+    8  cd guacamole-demo/
+    9  ls
+   10  mkdir cert
+   11  cd util/
+   12  ls
+   13  ./install-cert.sh
+   14  ./install-cas.sh
+   15  mkdir -p ../db/mysql
+   16  ./install-docker.sh
+   17  sudo ./install-docker.sh
+   18  sudo usermod -aG docker ubuntu
+   19  exit
+   20  groups
+   21  docker container run --rm hello-world
+   22  vi ~/.bashrc
+   23  source .bashrc
+   24  cd guacamole-demo/
+   25  ls
+   26  cd stack/
+   27  ls
+   28  vi minimal.yml
+   29  cd ..
+   30  ls -l
+   31  ls config/minimal/
+   32  cat config/minimal/user-mapping.xml
+   33  docker-compose -p guacstack -f stack/minimal.yml up
+   34  docker ps -a
+   35  docker-compose -p guacstack -f stack/minimal.yml down
+   36  cd proxy/
+   37  ls
+   38  more Dockerfile
+   39  more conf/default.conf
+   40  docker image build -t guacamole-demo-proxy proxy/
+   41  cd ..
+   42  docker image build -t guacamole-demo-proxy proxy/
+   43  more stack/proxy.yml
+   44  ls -l cert/
+   45  docker-compose -p guacstack -f stack/proxy.yml up
+   46  vi stack/proxy.yml
+   47  cd config/basic/
+   48  ls
+   49  more user-mapping.xml
+   50  cd ..
+   51  vi stack/basic.yml
+   52  docker-compose -p guacstack -f stack/basic.yml up
+   53  more config/basic/user-mapping.xml
+   54  vi config/basic/user-mapping.xml
+   55  docker-compose -p guacstack -f stack/basic.yml up
+   56  docker-compose -p guacstack -f stack/basic.yml down
+   57  ls
+   58  cd guacamole-demo/
+   59  ls
+   60  more stack/mysql.yml
+   61  ls
+   62  docker-compose -p guacstack -f stack/mysql.yml up -d
+   63  docker-compose -p guacstack -f stack/mysql.yml logs -f
+   64  docker container run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --mysql > $PWD/db/mysql/initdb.sql
+   65  docker-compose -p guacstack -f stack/mysql.yml exec mysql mysql -p -u root
+   66  more db/mysql/initdb.sql
+   67  ls
+   68  more guacamole-demo/stack/cas-mysql.yml
+   69  cd guacamole-demo/config/
+   70  ls
+   71  cd cas-mysql/
+   72  ls
+   73  more guacamole.properties
+   74  ls
+   75  ls extensions/
+   76  cd ..
+   77  docker-compose -p guacstack -f stack/mysql.yml down
+   78  docker-compose -p guacstack -f stack/cas-mysql.yml up -d
+   79  docker-compose -p guacstack -f stack/cas-mysql.yml logs -f
+   80  history
