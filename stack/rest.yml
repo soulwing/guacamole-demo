@@ -1,0 +1,42 @@
+# This stack configuration uses the guacamole-auth-rest-trivial 
+# REST service container along with the guacamole-auth-rest provider
+# extension for Guacamole.
+#
+# In order to run this stack you'll need to build and install the Docker
+# image for the REST service as described in 
+#    https://github.com/soulwing/guacamole-auth-rest-trivial/README.md
+
+version: "2"
+services:
+
+  guacamole:
+    image: guacamole/guacamole:latest
+    environment:
+      GUACAMOLE_HOME: /opt/guacamole/home
+      GUACD_HOSTNAME: guacd
+      # Don't include this JAVA_OPTS settings in production applications
+      JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom"
+    depends_on: 
+      - guacd
+    volumes:
+      - $PWD/config/rest:/opt/guacamole/home:ro
+
+  guacd:
+    image: guacamole/guacd:latest
+
+  trivial:
+    image: guacamole-auth-rest-trivial
+    ports:
+      - 3000:3000
+    volumes:
+      - $PWD/config/rest/user-mapping.json:/app/user-mapping.json
+
+  proxy:
+    image: guacamole-demo-proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - guacamole
+    volumes:
+      - $PWD/cert:/etc/nginx/cert:ro
