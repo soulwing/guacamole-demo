@@ -1,0 +1,46 @@
+# This stack configuration adds a PostgreSQL database for use with the
+# PostgreSQL auth provider in Guacamole. Note that connections to the
+# database from guacamole use the private network of the stack.
+
+version: "2"
+services:
+
+  guacamole:
+    image: guacamole/guacamole:latest
+    environment:
+      POSTGRES_HOSTNAME: postgres
+      POSTGRES_DATABASE: guacamole
+      POSTGRES_USER: guacamole
+      POSTGRES_PASSWORD: s3kr3t
+      GUACAMOLE_HOME: /opt/guacamole/home
+      GUACD_HOSTNAME: guacd
+      # Don't include this JAVA_OPTS settings in production applications
+      JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom"
+    depends_on: 
+      - postgres
+      - guacd
+    volumes:
+      - $PWD/config/postgresql:/opt/guacamole/home:ro
+    links:
+      - postgres  # need this explicit link to auto-enable PostgreSQL provider
+
+  guacd:
+    image: guacamole/guacd:latest
+
+  postgres:
+    image: postgres
+    volumes:
+      - $PWD/db/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: guacamole
+      POSTGRES_PASSWORD: s3kr3t
+
+  proxy:
+    image: guacamole-demo-proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - guacamole
+    volumes:
+      - $PWD/cert:/etc/nginx/cert:ro
