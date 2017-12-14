@@ -21,6 +21,8 @@ services:
       - guacd
     volumes:
       - $PWD/config/mysql:/opt/guacamole/home:ro
+    links:
+      - mysql  # need this link to auto-enable MySQL provider
 
   guacd:
     image: guacamole/guacd:latest
